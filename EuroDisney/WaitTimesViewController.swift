@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  WaitTimesViewController.swift
 //  EuroDisney
 //
 //  Created by Thomas Durand on 02/03/2016.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WaitTimesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
