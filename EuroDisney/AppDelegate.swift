@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import ChameleonFramework
+
+func ThemeColor() -> UIColor {
+    return FlatSkyBlue()
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Chameleon.setGlobalThemeUsingPrimaryColor(ThemeColor(), withContentStyle: .Contrast)
+        UINavigationBar.appearance().translucent = false
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarPosition: .Any, barMetrics: .Default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        
         return true
     }
 

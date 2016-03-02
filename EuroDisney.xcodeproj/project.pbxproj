@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DEB80D5FE158DA2C30FC5C6A /* Pods_EuroDisneyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2424B67C35D30FB04354BE0A /* Pods_EuroDisneyTests.framework */; };
 		E910D4291C874A4300DB5A85 /* Attraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E910D4281C874A4300DB5A85 /* Attraction.swift */; };
+		E910D42C1C87614800DB5A85 /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E910D42B1C87614800DB5A85 /* AttractionCell.swift */; };
 		E942B2451C87343000ABA3B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942B2441C87343000ABA3B9 /* AppDelegate.swift */; };
 		E942B2471C87343000ABA3B9 /* WaitTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942B2461C87343000ABA3B9 /* WaitTimesViewController.swift */; };
 		E942B24A1C87343000ABA3B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942B2481C87343000ABA3B9 /* Main.storyboard */; };
@@ -36,6 +37,7 @@
 		89D03B6ED0C56F9A7E9EEE00 /* Pods-EuroDisneyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EuroDisneyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EuroDisneyTests/Pods-EuroDisneyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A91F22F0084ABA362A7FD505 /* Pods-EuroDisney.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EuroDisney.release.xcconfig"; path = "Pods/Target Support Files/Pods-EuroDisney/Pods-EuroDisney.release.xcconfig"; sourceTree = "<group>"; };
 		E910D4281C874A4300DB5A85 /* Attraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attraction.swift; sourceTree = "<group>"; };
+		E910D42B1C87614800DB5A85 /* AttractionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		E942B2411C87343000ABA3B9 /* EuroDisney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EuroDisney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E942B2441C87343000ABA3B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E942B2461C87343000ABA3B9 /* WaitTimesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitTimesViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		E942B2641C87347400ABA3B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E910D42B1C87614800DB5A85 /* AttractionCell.swift */,
 				E942B24B1C87343000ABA3B9 /* Assets.xcassets */,
 				E942B2481C87343000ABA3B9 /* Main.storyboard */,
 				E942B24D1C87343000ABA3B9 /* LaunchScreen.storyboard */,
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E910D42C1C87614800DB5A85 /* AttractionCell.swift in Sources */,
 				E942B2471C87343000ABA3B9 /* WaitTimesViewController.swift in Sources */,
 				E910D4291C874A4300DB5A85 /* Attraction.swift in Sources */,
 				E942B2451C87343000ABA3B9 /* AppDelegate.swift in Sources */,
@@ -435,7 +439,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -474,7 +478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -488,6 +492,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EuroDisney/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.Dean.EuroDisney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -500,6 +505,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EuroDisney/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = fr.Dean.EuroDisney;
 				PRODUCT_NAME = "$(TARGET_NAME)";
