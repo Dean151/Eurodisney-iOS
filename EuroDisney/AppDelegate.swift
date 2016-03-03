@@ -30,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarPosition: .Any, barMetrics: .Default)
         UINavigationBar.appearance().shadowImage = UIImage()
         
+        // No cache
+        let cache = NSURLCache(memoryCapacity: 0, diskCapacity: 0, diskPath: nil)
+        NSURLCache.setSharedURLCache(cache)
+        
         return true
     }
 
