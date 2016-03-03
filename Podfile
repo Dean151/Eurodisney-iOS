@@ -4,7 +4,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'EuroDisney' do
-  pod 'Alamofire'
+  pod 'AFNetworking'
   pod 'ChameleonFramework/Swift'
   pod 'JFMinimalNotifications'
   pod 'SwiftyJSON'

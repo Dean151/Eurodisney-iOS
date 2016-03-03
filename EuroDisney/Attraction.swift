@@ -8,7 +8,7 @@
 
 import Foundation
 
-import Alamofire
+import AFNetworking
 import SwiftyJSON
 
 enum Park {
@@ -142,23 +142,23 @@ func ==(lhs: Attraction, rhs: Attraction) -> Bool {
 
 extension Attraction {
     static func getAttractions(park: Park, completion: (success: Bool, attractions:[Attraction]?, error: NSError?)->Void) {
-        Alamofire.request(.GET, BaseURL() + "\(park.parkId)-waittimes.json").validate().responseJSON { response in
-            switch response.result {
-            case .Success:
-                if let value = response.result.value {
+        
+        let manager = AFHTTPSessionManager()
+        
+        manager.GET(BaseURL() + "\(park.parkId)-waittimes.json", parameters: nil, progress: nil, success: { (task, response) -> Void in
+                if let value = response {
                     let json = JSON(value)
                     var attractions = [Attraction]()
-                    
+                
                     for attrJson in json.arrayValue {
                         attractions.append(Attraction(json: attrJson, park: park))
                     }
-                    
+                
                     completion(success: true, attractions: attractions, error: nil)
                 }
-            case .Failure(let error):
+            }, failure: { (task, error) -> Void in
                 completion(success: false, attractions: nil, error: error)
-            }
-        }
+            })
     }
     
     var imageUrl: String {
