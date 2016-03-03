@@ -8,16 +8,32 @@
 
 import UIKit
 
+import ChameleonFramework
+
 class AttractionCell: UITableViewCell {
     
     @IBOutlet weak var attImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var waitTimeLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     func configure(attraction attraction: Attraction) {
         titleLabel.text = attraction.name
-        timeLabel.text = nil
-        waitTimeLabel.text = attraction.waitTime.description
+        statusLabel.text = attraction.statusString
+        timeLabel.text = attraction.scheduleString
+        
+        waitTimeLabel.text = attraction.status != .Closed ? attraction.waitTime.description + "'" : nil
+        if attraction.waitTime >= 90 {
+            // Red
+            waitTimeLabel.textColor = FlatRed()
+        } else if attraction.waitTime > 30 {
+            // Orange
+            waitTimeLabel.textColor = FlatOrange()
+        } else {
+            // Green
+            waitTimeLabel.textColor = FlatGreen()
+        }
+        
     }
 }

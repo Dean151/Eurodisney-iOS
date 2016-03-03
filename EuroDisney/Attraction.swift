@@ -29,6 +29,17 @@ enum Status: String {
     case Closed = "Closed"
     case Down = "Down"
     case Operating = "Operating"
+    
+    var sortValue: Int {
+        switch self {
+        case .Closed:
+            return 0
+        case .Down:
+            return 1
+        case .Operating:
+            return 2
+        }
+    }
 }
 
 struct Schedule {
@@ -39,7 +50,7 @@ struct Schedule {
 /**
  Represent an attraction
  */
-class Attraction {
+class Attraction: Equatable, CustomStringConvertible {
     let id: String
     let name: String
     let waitTime: Int
@@ -60,6 +71,48 @@ class Attraction {
             closing: NSDate(stringDate: json["schedule"].dictionaryValue["closingTime"]!.stringValue)
         )
     }
+    
+    var scheduleString: String? {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .NoStyle
+        dateFormatter.timeStyle = .ShortStyle
+        
+        return dateFormatter.stringFromDate(schedule.opening) + " → " + dateFormatter.stringFromDate(schedule.closing)
+    }
+    
+    var statusString: String? {
+        if status == .Operating && areFastPassAvailable {
+            return "FastPass available"
+        }
+        
+        if status == .Down {
+            return "Down"
+        }
+        
+        if status == .Closed {
+            return "Closed"
+        }
+        
+        return nil
+    }
+    
+    var description: String {
+        var string = "EuroDisney.Attraction :\n"
+        string +=   "   id:         \(id)\n"
+        string +=   "   name:       \(name)\n"
+        string +=   "   waittime:   \(waitTime)\n"
+        string +=   "   active:     \(active)\n"
+        string +=   "   status:     \(status)\n"
+        string +=   "   fastpass:   \(areFastPassAvailable)\n"
+        string +=   "   opening:    \(schedule.opening)\n"
+        string +=   "   closing:    \(schedule.closing)\n"
+        
+        return string
+    }
+}
+
+func ==(lhs: Attraction, rhs: Attraction) -> Bool {
+    return lhs.id == rhs.id
 }
 
 extension Attraction {
