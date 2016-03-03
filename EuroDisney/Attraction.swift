@@ -157,7 +157,6 @@ extension Attraction {
 extension NSDate {
     convenience init(stringDate: String) {
         let dateFormatter = NSDateFormatter()
-        print(stringDate)
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
         if let d = dateFormatter.dateFromString(stringDate) {
             self.init(timeInterval: 0, sinceDate: d)

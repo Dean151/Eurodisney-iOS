@@ -9,6 +9,7 @@
 import UIKit
 
 import ChameleonFramework
+import JFMinimalNotifications
 
 class WaitTimesViewController: UITableViewController {
     
@@ -16,7 +17,11 @@ class WaitTimesViewController: UITableViewController {
     
     var attractions = [Attraction]()
     
+    
     var expectedReturns = 0
+    var nbSucceded = 0
+    var nbErrors = 0
+    
     var lastRefreshDate: NSDate? {
         didSet {
             if let date = lastRefreshDate {
@@ -59,20 +64,27 @@ class WaitTimesViewController: UITableViewController {
     }
     
     func didReceivedAttractions(success: Bool, attractions: [Attraction]?, error: NSError?) {
-        
-        expectedReturns -= 1
-        
-        if expectedReturns == 0 {
-            refreshControl?.endRefreshing()
-            lastRefreshDate = NSDate()
-        }
             
         if success {
+            nbSucceded += 1
+            
             self.attractions.appendContentsOf(attractions!)
             sortAttractions()
             tableView.reloadData()
         } else {
-            print(error!)
+            nbErrors += 1
+        }
+        
+        if expectedReturns == nbSucceded + nbErrors  {
+            refreshControl?.endRefreshing()
+            lastRefreshDate = NSDate()
+            
+            if nbErrors > 0 {
+                presentErrorMessage()
+            }
+            
+            nbSucceded = 0
+            nbErrors = 0
         }
     }
     
@@ -103,6 +115,11 @@ class WaitTimesViewController: UITableViewController {
             
             return sortByName(a1, a2: a2)
         }
+    }
+    
+    func presentErrorMessage() {
+        let alert = JFMinimalNotification(style: .Error, title: "An error occured", subTitle: "Do you have an internet connection ?", dismissalDelay: 1.5)
+        alert.show()
     }
 }
 
