@@ -19,6 +19,9 @@ class AttractionCell: UITableViewCell {
     @IBOutlet weak var waitTimeLabel: UILabel!
     
     func configure(attraction attraction: Attraction) {
+        
+        self.subviews.forEach { $0.alpha = attraction.active ? 1.0 : 0.4 }
+        
         titleLabel.text = attraction.name
         statusLabel.text = attraction.statusString
         waitTimeLabel.text = attraction.status != .Closed ? attraction.waitTime.description + "'" : nil
@@ -35,6 +38,12 @@ class AttractionCell: UITableViewCell {
         } else {
             // Green
             waitTimeLabel.textColor = FlatGreen()
+        }
+        
+        // Downloading the attraction image
+        attImageView.image = nil
+        if let url = attraction.imageUrl {
+            attImageView.setImageWithURL(url)
         }
         
     }

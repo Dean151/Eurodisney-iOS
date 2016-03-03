@@ -41,6 +41,9 @@ class WaitTimesViewController: UITableViewController {
         
         self.navigationItem.title = "Attractions"
         
+        // Table view customization
+        tableView.separatorStyle = .None
+        
         // Refresh Control setting
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = ThemeColor()
@@ -97,24 +100,20 @@ class WaitTimesViewController: UITableViewController {
     }
     
     func sortByTimeAndStatus(a1: Attraction, a2: Attraction) -> Bool {
-        if a1.status == a2.status {
-            if a1.waitTime != a2.waitTime {
-                return a1.waitTime < a2.waitTime
-            }
-            
-            return sortByName(a1, a2: a2)
-        } else {
-            
-            if a1.isClosedToday != a2.isClosedToday {
-                return !a1.isClosedToday
-            }
-            
-            if a1.status != a2.status {
-                return a1.status.sortValue > a2.status.sortValue
-            }
-            
-            return sortByName(a1, a2: a2)
+        
+        if a1.isClosedToday != a2.isClosedToday {
+            return !a1.isClosedToday
         }
+        
+        if a1.status != a2.status {
+            return a1.status.sortValue > a2.status.sortValue
+        }
+        
+        if a1.waitTime != a2.waitTime {
+            return a1.waitTime < a2.waitTime
+        }
+            
+        return sortByName(a1, a2: a2)
     }
     
     func presentErrorMessage() {
@@ -135,7 +134,6 @@ extension WaitTimesViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(attractions[indexPath.row].imageUrl)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     

@@ -161,9 +161,10 @@ extension Attraction {
             })
     }
     
-    var imageUrl: String {
+    var imageUrl: NSURL? {
         let scale = min(2, Int(UIScreen.mainScreen().scale))
-        return BaseURL() + "images/\(self.id)@\(scale).png"
+        let url = BaseURL() + "images/\(self.id)@\(scale).png"
+        return NSURL(string: url)
     }
 }
 
