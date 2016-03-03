@@ -72,7 +72,20 @@ class Attraction: Equatable, CustomStringConvertible {
         )
     }
     
+    var isClosedToday: Bool {
+        guard status == .Closed else {
+            return false
+        }
+        
+        return schedule.closing.timeIntervalSinceDate(schedule.opening) == ((60*60*24)-60)
+    }
+    
     var scheduleString: String? {
+        
+        if isClosedToday {
+            return nil
+        }
+        
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .NoStyle
         dateFormatter.timeStyle = .ShortStyle
@@ -87,6 +100,10 @@ class Attraction: Equatable, CustomStringConvertible {
         
         if status == .Down {
             return "Down"
+        }
+        
+        if isClosedToday {
+            return "Closed today"
         }
         
         if status == .Closed {
@@ -140,7 +157,8 @@ extension Attraction {
 extension NSDate {
     convenience init(stringDate: String) {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+        print(stringDate)
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
         if let d = dateFormatter.dateFromString(stringDate) {
             self.init(timeInterval: 0, sinceDate: d)
         } else {

@@ -89,17 +89,19 @@ class WaitTimesViewController: UITableViewController {
             if a1.waitTime != a2.waitTime {
                 return a1.waitTime < a2.waitTime
             }
-            else {
-                return sortByName(a1, a2: a2)
+            
+            return sortByName(a1, a2: a2)
+        } else {
+            
+            if a1.isClosedToday != a2.isClosedToday {
+                return !a1.isClosedToday
             }
             
-        } else {
             if a1.status != a2.status {
                 return a1.status.sortValue > a2.status.sortValue
             }
-            else {
-                return sortByName(a1, a2: a2)
-            }
+            
+            return sortByName(a1, a2: a2)
         }
     }
 }
