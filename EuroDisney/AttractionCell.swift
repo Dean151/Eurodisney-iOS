@@ -13,17 +13,19 @@ import ChameleonFramework
 class AttractionCell: UITableViewCell {
     
     @IBOutlet weak var attImageView: UIImageView!
+    @IBOutlet weak var parkImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var waitTimeLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var waitTimeLabel: UILabel!
     
     func configure(attraction attraction: Attraction) {
         titleLabel.text = attraction.name
         statusLabel.text = attraction.statusString
-        timeLabel.text = attraction.scheduleString
-        
         waitTimeLabel.text = attraction.status != .Closed ? attraction.waitTime.description + "'" : nil
+        
+        parkImageView.image = attraction.park.image
+        parkImageView.tintColor = ThemeColor()
+        
         if attraction.waitTime >= 90 {
             // Red
             waitTimeLabel.textColor = FlatRed()

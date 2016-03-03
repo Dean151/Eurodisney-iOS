@@ -13,6 +13,10 @@ func ThemeColor() -> UIColor {
     return FlatSkyBlue()
 }
 
+func BaseURL() -> String {
+    return "http://api.cafelembas.com/"
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

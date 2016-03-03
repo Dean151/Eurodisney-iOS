@@ -23,6 +23,10 @@ enum Park {
             return "wds"
         }
     }
+    
+    var image: UIImage? {
+        return UIImage(named: self.parkId)
+    }
 }
 
 enum Status: String {
@@ -58,8 +62,9 @@ class Attraction: Equatable, CustomStringConvertible {
     let status: Status
     let areFastPassAvailable: Bool
     let schedule: Schedule
+    let park: Park
     
-    init(json: JSON) {
+    init(json: JSON, park: Park) {
         self.id = json["id"].stringValue
         self.name = json["name"].stringValue
         self.waitTime = json["waitTime"].intValue
@@ -70,6 +75,7 @@ class Attraction: Equatable, CustomStringConvertible {
             opening: NSDate(stringDate: json["schedule"].dictionaryValue["openingTime"]!.stringValue),
             closing: NSDate(stringDate: json["schedule"].dictionaryValue["closingTime"]!.stringValue)
         )
+        self.park = park
     }
     
     var isClosedToday: Bool {
@@ -80,12 +86,7 @@ class Attraction: Equatable, CustomStringConvertible {
         return schedule.closing.timeIntervalSinceDate(schedule.opening) == ((60*60*24)-60)
     }
     
-    var scheduleString: String? {
-        
-        if isClosedToday {
-            return nil
-        }
-        
+    var scheduleString: String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .NoStyle
         dateFormatter.timeStyle = .ShortStyle
@@ -94,23 +95,26 @@ class Attraction: Equatable, CustomStringConvertible {
     }
     
     var statusString: String? {
-        if status == .Operating && areFastPassAvailable {
-            return "FastPass available"
-        }
-        
-        if status == .Down {
-            return "Down"
-        }
         
         if isClosedToday {
             return "Closed today"
         }
         
-        if status == .Closed {
-            return "Closed"
+        var string = scheduleString
+        
+        if status == .Operating && areFastPassAvailable {
+            string += " - FastPass available"
         }
         
-        return nil
+        if status == .Down {
+            string += " - Down"
+        }
+        
+        if status == .Closed {
+            string += " - Closed"
+        }
+        
+        return string
     }
     
     var description: String {
@@ -132,9 +136,13 @@ func ==(lhs: Attraction, rhs: Attraction) -> Bool {
     return lhs.id == rhs.id
 }
 
+/**
+    API EXTENSIONS
+*/
+
 extension Attraction {
     static func getAttractions(park: Park, completion: (success: Bool, attractions:[Attraction]?, error: NSError?)->Void) {
-        Alamofire.request(.GET, "http://api.cafelembas.com/\(park.parkId)-waittimes.json").validate().responseJSON { response in
+        Alamofire.request(.GET, BaseURL() + "\(park.parkId)-waittimes.json").validate().responseJSON { response in
             switch response.result {
             case .Success:
                 if let value = response.result.value {
@@ -142,7 +150,7 @@ extension Attraction {
                     var attractions = [Attraction]()
                     
                     for attrJson in json.arrayValue {
-                        attractions.append(Attraction(json: attrJson))
+                        attractions.append(Attraction(json: attrJson, park: park))
                     }
                     
                     completion(success: true, attractions: attractions, error: nil)
@@ -151,6 +159,11 @@ extension Attraction {
                 completion(success: false, attractions: nil, error: error)
             }
         }
+    }
+    
+    var imageUrl: String {
+        let scale = min(2, Int(UIScreen.mainScreen().scale))
+        return BaseURL() + "images/\(self.id)@\(scale).png"
     }
 }
 

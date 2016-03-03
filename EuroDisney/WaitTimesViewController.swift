@@ -97,7 +97,7 @@ class WaitTimesViewController: UITableViewController {
     }
     
     func sortByTimeAndStatus(a1: Attraction, a2: Attraction) -> Bool {
-        if a1.status == .Operating && a2.status == .Operating {
+        if a1.status == a2.status {
             if a1.waitTime != a2.waitTime {
                 return a1.waitTime < a2.waitTime
             }
@@ -135,12 +135,12 @@ extension WaitTimesViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(attractions[indexPath.row])
+        print(attractions[indexPath.row].imageUrl)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 66
+        return 76
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
