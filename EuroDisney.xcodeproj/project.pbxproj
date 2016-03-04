@@ -16,6 +16,8 @@
 		E942B24C1C87343000ABA3B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E942B24B1C87343000ABA3B9 /* Assets.xcassets */; };
 		E942B24F1C87343000ABA3B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E942B24D1C87343000ABA3B9 /* LaunchScreen.storyboard */; };
 		E942B25A1C87343000ABA3B9 /* EuroDisneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E942B2591C87343000ABA3B9 /* EuroDisneyTests.swift */; };
+		E98C44CB1C89DDA400143EB0 /* NextStepExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98C44CA1C89DDA400143EB0 /* NextStepExtensions.swift */; };
+		E98C44CF1C89DE4800143EB0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E98C44D11C89DE4800143EB0 /* Localizable.strings */; };
 		FF13770DFF43DEB2AA900E3D /* Pods_EuroDisney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437031B01763F8BCDAD52173 /* Pods_EuroDisney.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +50,9 @@
 		E942B2551C87343000ABA3B9 /* EuroDisneyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuroDisneyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E942B2591C87343000ABA3B9 /* EuroDisneyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuroDisneyTests.swift; sourceTree = "<group>"; };
 		E942B25B1C87343000ABA3B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E98C44CA1C89DDA400143EB0 /* NextStepExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextStepExtensions.swift; sourceTree = "<group>"; };
+		E98C44D01C89DE4800143EB0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E98C44D21C89DF3200143EB0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,10 +127,12 @@
 			isa = PBXGroup;
 			children = (
 				E942B2651C87347A00ABA3B9 /* Controllers */,
+				E98C44CC1C89DDAA00143EB0 /* Extensions */,
 				E910D42A1C874A4700DB5A85 /* Models */,
 				E942B2641C87347400ABA3B9 /* Views */,
 				E942B2441C87343000ABA3B9 /* AppDelegate.swift */,
 				E942B2501C87343000ABA3B9 /* Info.plist */,
+				E98C44D11C89DE4800143EB0 /* Localizable.strings */,
 			);
 			path = EuroDisney;
 			sourceTree = "<group>";
@@ -156,6 +163,14 @@
 				E942B2461C87343000ABA3B9 /* WaitTimesViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E98C44CC1C89DDAA00143EB0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E98C44CA1C89DDA400143EB0 /* NextStepExtensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +243,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = E942B2381C87342F00ABA3B9;
 			productRefGroup = E942B2421C87343000ABA3B9 /* Products */;
@@ -246,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E942B24F1C87343000ABA3B9 /* LaunchScreen.storyboard in Resources */,
+				E98C44CF1C89DE4800143EB0 /* Localizable.strings in Resources */,
 				E942B24C1C87343000ABA3B9 /* Assets.xcassets in Resources */,
 				E942B24A1C87343000ABA3B9 /* Main.storyboard in Resources */,
 			);
@@ -358,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E98C44CB1C89DDA400143EB0 /* NextStepExtensions.swift in Sources */,
 				E910D42C1C87614800DB5A85 /* AttractionCell.swift in Sources */,
 				E942B2471C87343000ABA3B9 /* WaitTimesViewController.swift in Sources */,
 				E910D4291C874A4300DB5A85 /* Attraction.swift in Sources */,
@@ -398,6 +416,15 @@
 				E942B24E1C87343000ABA3B9 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		E98C44D11C89DE4800143EB0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E98C44D01C89DE4800143EB0 /* en */,
+				E98C44D21C89DF3200143EB0 /* fr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  EuroDisney
+
+  Created by Thomas Durand on 04/03/2016.
+  Copyright © 2016 Thomas Durand. All rights reserved.
+*/
+
+"ATTRACTIONS" = "Attractions";
+"CLOSED" = "Closed";
+"CLOSED_TODAY" = "Closed today";
+"DOWN" = "Interrupted";
+"FASTPASS_AVAILABLE" = "FastPass available";
+"LAST_REFRESHED_AT" = "Last refreshed at";
+"PULL_TO_REFRESH" = "Pull to refresh";

@@ -30,7 +30,7 @@ class WaitTimesViewController: UITableViewController {
                 dateFormatter.dateStyle = .NoStyle
                 dateFormatter.timeStyle = .ShortStyle
                 
-                refreshControl?.attributedTitle = NSAttributedString(string: "Last refreshed at \(dateFormatter.stringFromDate(date))", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+                refreshControl?.attributedTitle = NSAttributedString(string: "LAST_REFRESHED_AT".localized + " " + dateFormatter.stringFromDate(date), attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
             }
         }
     }
@@ -38,7 +38,7 @@ class WaitTimesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Attractions"
+        self.navigationItem.title = "ATTRACTIONS".localized
         
         // Table view customization
         tableView.separatorStyle = .None
@@ -47,7 +47,7 @@ class WaitTimesViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = ThemeColor()
         refreshControl?.tintColor = UIColor.whiteColor()
-        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        refreshControl?.attributedTitle = NSAttributedString(string: "PULL_TO_REFRESH".localized, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         refreshControl?.addTarget(self, action: Selector("refreshWaitTimes:"), forControlEvents: .ValueChanged)
         
         // Search Controller
@@ -70,6 +70,13 @@ class WaitTimesViewController: UITableViewController {
     
     func refreshWaitTimes(sender: UIRefreshControl?) {
         if sender == nil {
+            self.tableView.setContentOffset(CGPointMake(0, -1), animated: false)
+            if let height = self.refreshControl?.frame.size.height {
+                self.tableView.setContentOffset(CGPointMake(0, -height), animated: true)
+            } else {
+                self.tableView.setContentOffset(CGPointMake(0, 0), animated: true)
+            }
+            
             refreshControl?.beginRefreshing()
         }
         

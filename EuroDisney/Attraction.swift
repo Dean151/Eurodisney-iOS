@@ -97,21 +97,21 @@ class Attraction: Equatable, CustomStringConvertible {
     var statusString: String? {
         
         if isClosedToday {
-            return "Closed today"
+            return "CLOSED_TODAY".localized
         }
         
         var string = scheduleString
         
         if status == .Operating && areFastPassAvailable {
-            string += " - FastPass available"
+            string += " - " + "FASTPASS_AVAILABLE".localized
         }
         
         if status == .Down {
-            string += " - Down"
+            string += " - " + "DOWN".localized
         }
         
         if status == .Closed {
-            string += " - Closed"
+            string += " - " + "CLOSED".localized
         }
         
         return string
@@ -165,17 +165,5 @@ extension Attraction {
         let scale = min(2, Int(UIScreen.mainScreen().scale))
         let url = BaseURL() + "images/\(self.id)@\(scale).jpg"
         return NSURL(string: url)
-    }
-}
-
-extension NSDate {
-    convenience init(stringDate: String, format: String? = nil) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = format ?? "yyyy-MM-dd'T'HH:mm:ssZZZ"
-        if let d = dateFormatter.dateFromString(stringDate) {
-            self.init(timeInterval: 0, sinceDate: d)
-        } else {
-            self.init()
-        }
     }
 }
