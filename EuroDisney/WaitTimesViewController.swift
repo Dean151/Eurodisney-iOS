@@ -14,8 +14,10 @@ class WaitTimesViewController: UITableViewController {
     
     let reuseIdentifier = "AttractionCell"
     
-    var attractions = [Attraction]()
+    var attractions: [Attraction] = []
     
+    var searchController: UISearchController!
+    var searchResults: [Attraction] = []
     
     var expectedReturns = 0
     var nbSucceded = 0
@@ -47,6 +49,19 @@ class WaitTimesViewController: UITableViewController {
         refreshControl?.tintColor = UIColor.whiteColor()
         refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         refreshControl?.addTarget(self, action: Selector("refreshWaitTimes:"), forControlEvents: .ValueChanged)
+        
+        // Search Controller
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).tintColor = ThemeColor()
+        tableView.tableHeaderView = searchController.searchBar
+        definesPresentationContext = true
+        
+        self.tableView.tableHeaderView = self.searchController.searchBar
+        self.searchController.searchBar.sizeToFit()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -89,14 +104,6 @@ class WaitTimesViewController: UITableViewController {
         }
     }
     
-    func attractionAtIndexPath(indexPath: NSIndexPath) -> Attraction? {
-        guard indexPath.row >= 0 && indexPath.row < attractions.count else {
-            return nil
-        }
-        
-        return attractions[indexPath.row]
-    }
-    
     func sortAttractions() {
         self.attractions.sortInPlace(sortByTimeAndStatus)
     }
@@ -126,6 +133,18 @@ class WaitTimesViewController: UITableViewController {
 /* TABLE VIEW */
 
 extension WaitTimesViewController {
+    
+    func attractionAtIndexPath(indexPath: NSIndexPath) -> Attraction? {
+        
+        let array = isSearching ? searchResults : attractions
+        
+        guard indexPath.row >= 0 && indexPath.row < array.count else {
+            return nil
+        }
+        
+        return array[indexPath.row]
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! AttractionCell
         
@@ -145,6 +164,29 @@ extension WaitTimesViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return attractions.count
+        return (isSearching ? searchResults : attractions).count
+    }
+}
+
+/* SEARCH */
+
+extension WaitTimesViewController: UISearchResultsUpdating {
+    
+    var isSearching: Bool {
+        guard let searchText = searchController.searchBar.text else { return false }
+        return searchController.active && !searchText.isEmpty
+    }
+    
+    func filterForSearchText(text: String) {
+        searchResults = attractions.filter({
+            let nameMatch = $0.name.rangeOfString(text, options: NSStringCompareOptions.CaseInsensitiveSearch)
+            return nameMatch != nil
+        })
+    }
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        filterForSearchText(searchText)
+        tableView.reloadData()
     }
 }
