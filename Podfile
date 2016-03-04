@@ -6,7 +6,6 @@ use_frameworks!
 target 'EuroDisney' do
   pod 'AFNetworking'
   pod 'ChameleonFramework/Swift'
-  pod 'JFMinimalNotifications'
   pod 'SwiftyJSON'
 end
 

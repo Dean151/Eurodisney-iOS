@@ -9,7 +9,6 @@
 import UIKit
 
 import ChameleonFramework
-import JFMinimalNotifications
 
 class WaitTimesViewController: UITableViewController {
     
@@ -30,8 +29,6 @@ class WaitTimesViewController: UITableViewController {
                 dateFormatter.timeStyle = .ShortStyle
                 
                 refreshControl?.attributedTitle = NSAttributedString(string: "Last refreshed at \(dateFormatter.stringFromDate(date))", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-            } else {
-                refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
             }
         }
     }
@@ -48,6 +45,7 @@ class WaitTimesViewController: UITableViewController {
         refreshControl = UIRefreshControl()
         refreshControl?.backgroundColor = ThemeColor()
         refreshControl?.tintColor = UIColor.whiteColor()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         refreshControl?.addTarget(self, action: Selector("refreshWaitTimes:"), forControlEvents: .ValueChanged)
     }
     
@@ -83,12 +81,20 @@ class WaitTimesViewController: UITableViewController {
             lastRefreshDate = NSDate()
             
             if nbErrors > 0 {
-                presentErrorMessage()
+                // Do something
             }
             
             nbSucceded = 0
             nbErrors = 0
         }
+    }
+    
+    func attractionAtIndexPath(indexPath: NSIndexPath) -> Attraction? {
+        guard indexPath.row >= 0 && indexPath.row < attractions.count else {
+            return nil
+        }
+        
+        return attractions[indexPath.row]
     }
     
     func sortAttractions() {
@@ -115,11 +121,6 @@ class WaitTimesViewController: UITableViewController {
             
         return sortByName(a1, a2: a2)
     }
-    
-    func presentErrorMessage() {
-        let alert = JFMinimalNotification(style: .Error, title: "An error occured", subTitle: "Do you have an internet connection ?", dismissalDelay: 1.5)
-        alert.show()
-    }
 }
 
 /* TABLE VIEW */
@@ -128,7 +129,9 @@ extension WaitTimesViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! AttractionCell
         
-        cell.configure(attraction: attractions[indexPath.row])
+        if let attraction = attractionAtIndexPath(indexPath) {
+            cell.configure(attraction: attraction)
+        }
         
         return cell
     }
