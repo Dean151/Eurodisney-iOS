@@ -163,7 +163,7 @@ extension Attraction {
     
     var imageUrl: NSURL? {
         let scale = min(2, Int(UIScreen.mainScreen().scale))
-        let url = BaseURL() + "images/\(self.id)@\(scale).png"
+        let url = BaseURL() + "images/\(self.id)@\(scale).jpg"
         return NSURL(string: url)
     }
 }
