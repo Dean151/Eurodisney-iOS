@@ -169,9 +169,9 @@ extension Attraction {
 }
 
 extension NSDate {
-    convenience init(stringDate: String) {
+    convenience init(stringDate: String, format: String? = nil) {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZ"
+        dateFormatter.dateFormat = format ?? "yyyy-MM-dd'T'HH:mm:ssZZZ"
         if let d = dateFormatter.dateFromString(stringDate) {
             self.init(timeInterval: 0, sinceDate: d)
         } else {
