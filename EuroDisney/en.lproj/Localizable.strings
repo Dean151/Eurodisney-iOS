@@ -8,7 +8,7 @@
 
 "ATTRACTIONS" = "Attractions";
 "CLOSED" = "Closed";
-"CLOSED_TODAY" = "Closed today";
+"CLOSED_TODAY" = "Closed for refurbishment";
 "DOWN" = "Interrupted";
 "FASTPASS_AVAILABLE" = "FastPass available";
 "LAST_REFRESHED_AT" = "Last refreshed at";

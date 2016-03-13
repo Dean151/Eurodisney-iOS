@@ -8,8 +8,6 @@
 
 import UIKit
 
-import ChameleonFramework
-
 final class WaitTimesViewController: DisneyTableViewController {
     
     let reuseIdentifier = "AttractionCell"
