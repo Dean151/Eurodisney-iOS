@@ -39,7 +39,7 @@ class DisneyTableViewController: UITableViewController {
         refreshControl?.backgroundColor = ThemeColor()
         refreshControl?.tintColor = UIColor.whiteColor()
         refreshControl?.attributedTitle = NSAttributedString(string: "PULL_TO_REFRESH".localized, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
-        refreshControl?.addTarget(self, action: Selector("refresh:"), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(DisneyTableViewController.refresh(_:)), forControlEvents: .ValueChanged)
         
         // Search Controller
         searchController = UISearchController(searchResultsController: nil)
